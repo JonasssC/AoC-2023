@@ -1,5 +1,6 @@
 module Input where
 
+import Data.List.Split (chunksOf)
 import Data.Text (replace, split)
 import Text.Printf (printf)
 
@@ -17,6 +18,11 @@ readLinesAs :: (Read a) => Int -> Int -> IO [a]
 readLinesAs y d = do
   lines <- readLines y d
   return (map read lines)
+
+readByGroupedLines :: Int -> Int -> Int -> IO [[String]]
+readByGroupedLines y d n = do
+  lines <- readLines y d
+  return (chunksOf n lines)
 
 readSplitOnEmptyLine :: Int -> Int -> IO [String]
 readSplitOnEmptyLine y d = do

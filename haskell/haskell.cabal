@@ -7,6 +7,7 @@ library input
     exposed-modules:  Input
     hs-source-dirs:   lib
     build-depends:    
+        , split
         , text
         , base      ^>=4.17.2.0
 
@@ -14,17 +15,41 @@ library input
 executable Y2022D01
     main-is:          Y2022D01.hs
 
-    build-depends:
+    build-depends: 
+        , text
         , input
         , base      ^>=4.17.2.0
     hs-source-dirs:   y2022\d01
     default-language: Haskell2010
 
 
+executable Y2022D02
+    main-is:          Y2022D02.hs
+
+    build-depends: 
+        , text
+        , input
+        , base      ^>=4.17.2.0
+    hs-source-dirs:   y2022\d02
+    default-language: Haskell2010
+
+
+executable Y2022D03
+    main-is:          Y2022D03.hs
+
+    build-depends: 
+        , text
+        , input
+        , base      ^>=4.17.2.0
+    hs-source-dirs:   y2022\d03
+    default-language: Haskell2010
+
+
 executable Y2023D01
     main-is:          Y2023D01.hs
 
-    build-depends:
+    build-depends: 
+        , text
         , input
         , base      ^>=4.17.2.0
     hs-source-dirs:   y2023\d01
