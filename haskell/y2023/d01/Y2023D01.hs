@@ -1,8 +1,8 @@
 module Main where
 
-import Data.Int (Int)
+import Data.Char (isDigit)
 import Data.List (isPrefixOf, isSuffixOf)
-import Data.String (String)
+import Data.Map (Map, fromList, keys, (!))
 import Input (readLines)
 
 main :: IO ()
@@ -19,7 +19,7 @@ part1 lines = do
   return (sum nums)
 
 digits :: String -> String
-digits = filter (<= '9')
+digits = filter isDigit
 
 toNumber :: String -> Int
 toNumber s = read (head s : [last s])
@@ -29,50 +29,21 @@ part2 lines = do
   let nums = map (\line -> startingNumber line * 10 + endingNumber line) lines
   return (sum nums)
 
+numbers :: Map String Int
+numbers = fromList [("one", 1), ("two", 2), ("three", 3), ("four", 4), ("five", 5), ("six", 6), ("seven", 7), ("eight", 8), ("nine", 9)]
+
 startingNumber :: String -> Int
 startingNumber s
-  | "zero" `isPrefixOf` s = 0
-  | "0" `isPrefixOf` s = 0
-  | "one" `isPrefixOf` s = 1
-  | "1" `isPrefixOf` s = 1
-  | "two" `isPrefixOf` s = 2
-  | "2" `isPrefixOf` s = 2
-  | "three" `isPrefixOf` s = 3
-  | "3" `isPrefixOf` s = 3
-  | "four" `isPrefixOf` s = 4
-  | "4" `isPrefixOf` s = 4
-  | "five" `isPrefixOf` s = 5
-  | "5" `isPrefixOf` s = 5
-  | "six" `isPrefixOf` s = 6
-  | "6" `isPrefixOf` s = 6
-  | "seven" `isPrefixOf` s = 7
-  | "7" `isPrefixOf` s = 7
-  | "eight" `isPrefixOf` s = 8
-  | "8" `isPrefixOf` s = 8
-  | "nine" `isPrefixOf` s = 9
-  | "9" `isPrefixOf` s = 9
-  | otherwise = startingNumber (tail s)
+  | isDigit (head s) = read [head s]
+  | null matches = startingNumber (tail s)
+  | otherwise = numbers ! head matches
+  where
+    matches = filter (`isPrefixOf` s) (keys numbers)
 
 endingNumber :: String -> Int
 endingNumber s
-  | "zero" `isSuffixOf` s = 0
-  | "0" `isSuffixOf` s = 0
-  | "one" `isSuffixOf` s = 1
-  | "1" `isSuffixOf` s = 1
-  | "two" `isSuffixOf` s = 2
-  | "2" `isSuffixOf` s = 2
-  | "three" `isSuffixOf` s = 3
-  | "3" `isSuffixOf` s = 3
-  | "four" `isSuffixOf` s = 4
-  | "4" `isSuffixOf` s = 4
-  | "five" `isSuffixOf` s = 5
-  | "5" `isSuffixOf` s = 5
-  | "six" `isSuffixOf` s = 6
-  | "6" `isSuffixOf` s = 6
-  | "seven" `isSuffixOf` s = 7
-  | "7" `isSuffixOf` s = 7
-  | "eight" `isSuffixOf` s = 8
-  | "8" `isSuffixOf` s = 8
-  | "nine" `isSuffixOf` s = 9
-  | "9" `isSuffixOf` s = 9
-  | otherwise = endingNumber (init s)
+  | isDigit (last s) = read [last s]
+  | null matches = endingNumber (init s)
+  | otherwise = numbers ! head matches
+  where
+    matches = filter (`isSuffixOf` s) (keys numbers)
