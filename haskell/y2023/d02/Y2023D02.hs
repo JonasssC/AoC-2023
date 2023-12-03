@@ -2,13 +2,14 @@ module Main where
 
 import Data.List.Split (splitOn)
 import Input (readLines)
+import System.TimeIt
 
 main :: IO ()
 main = do
   lines <- readLines 2023 2
-  p1 <- part1 lines
+  p1 <- timeItNamed "Part 1" $ part1 lines
   putStrLn ("Part 1: " ++ show p1)
-  p2 <- part2 lines
+  p2 <- timeItNamed "Part 2" $ part2 lines
   putStrLn ("Part 2: " ++ show p2)
 
 data Game = MkGame Int [[Reveal]]

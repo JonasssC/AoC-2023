@@ -62,9 +62,24 @@ executable Y2023D02
 
     build-depends: 
         , text
+        , timeit
         , input
         , split
         , containers
         , base      ^>=4.17.2.0
     hs-source-dirs:   y2023\d02
+    default-language: Haskell2010
+
+
+executable Y2023D03
+    main-is:          Y2023D03.hs
+
+    build-depends: 
+        , text
+        , timeit
+        , input
+        , split
+        , containers
+        , base      ^>=4.17.2.0
+    hs-source-dirs:   y2023\d03
     default-language: Haskell2010
