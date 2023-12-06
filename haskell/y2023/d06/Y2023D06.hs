@@ -32,11 +32,12 @@ part1 :: [Race] -> Int
 part1 races = product $ map countWinning races
 
 countWinning :: Race -> Int
-countWinning (MkRace time distance) = length winning
-  where
-    speeds = [0 .. time]
-    distances = map (\speed -> speed * (time - speed)) speeds
-    winning = filter (> distance) distances
+countWinning = countWinningHelper 0
+
+countWinningHelper :: Int -> Race -> Int
+countWinningHelper speed (MkRace time distance)
+  | speed * (time - speed) <= distance = countWinningHelper (speed + 1) (MkRace time distance)
+  | otherwise = time - 2 * speed + 1
 
 ---------------------------
 
