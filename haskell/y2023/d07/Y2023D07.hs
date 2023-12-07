@@ -22,12 +22,12 @@ parseHand s = MkHand cards (read bid)
     [cards, bid] = splitOn " " s
 
 part1 :: [Hand] -> Int
-part1 hands = sum [pos * bid | (pos, x@(MkHand cards bid)) <- zip [1 .. (length hands)] orderedHands]
+part1 hands = sum [pos * bid | (pos, x@(MkHand _ bid)) <- zip [1 .. (length hands)] orderedHands]
   where
     orderedHands = sortOn strength hands
 
 strength :: Hand -> Int
-strength (MkHand cards bid) = handStrength cards + cardsStrength cards
+strength (MkHand cards _) = handStrength cards + cardsStrength cardStrength cards
 
 handStrength :: String -> Int
 handStrength cards
@@ -41,8 +41,8 @@ handStrength cards
   where
     groupedCards = group $ sort cards
 
-cardsStrength :: [Char] -> Int
-cardsStrength = foldl (\res x -> res * 13 + cardStrength x) 0
+cardsStrength :: (Char -> Int) -> [Char] -> Int
+cardsStrength strength = foldl (\res x -> res * 13 + strength x) 0
 
 cardStrength :: Char -> Int
 cardStrength 'A' = 12
@@ -55,23 +55,20 @@ cardStrength c = read [c] - 2
 ---------------------------
 
 part2 :: [Hand] -> Int
-part2 hands = sum [pos * bid | (pos, x@(MkHand cards bid)) <- zip [1 .. (length hands)] orderedHands]
+part2 hands = sum [pos * bid | (pos, x@(MkHand _ bid)) <- zip [1 .. (length hands)] orderedHands]
   where
     orderedHands = sortOn strengthWithJoker hands
 
 strengthWithJoker :: Hand -> Int
-strengthWithJoker (MkHand cards bid)
-  | cards /= "JJJJJ" && 'J' `elem` cards = handStrengthWithJoker cards + cardsStrengthWithJoker cards
-  | otherwise = handStrength cards + cardsStrengthWithJoker cards
+strengthWithJoker (MkHand cards _)
+  | cards /= "JJJJJ" && 'J' `elem` cards = handStrengthWithJoker cards + cardsStrength cardStrengthWithJoker cards
+  | otherwise = handStrength cards + cardsStrength cardStrengthWithJoker cards
 
 handStrengthWithJoker :: [Char] -> Int
 handStrengthWithJoker cards = maximum [handStrength (replaceJokers card cards) | card <- nub (filter (/= 'J') cards)]
 
 replaceJokers :: Char -> [Char] -> [Char]
 replaceJokers c = map (\x -> if x == 'J' then c else x)
-
-cardsStrengthWithJoker :: [Char] -> Int
-cardsStrengthWithJoker = foldl (\res x -> res * 13 + cardStrengthWithJoker x) 0
 
 cardStrengthWithJoker :: Char -> Int
 cardStrengthWithJoker 'A' = 12
