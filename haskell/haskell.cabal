@@ -139,3 +139,17 @@ executable Y2023D07
         , base      ^>=4.17.2.0
     hs-source-dirs:   y2023\d07
     default-language: Haskell2010
+
+
+executable Y2023D08
+    main-is:          Y2023D08.hs
+
+    build-depends: 
+        , text
+        , timeit
+        , input
+        , split
+        , containers
+        , base      ^>=4.17.2.0
+    hs-source-dirs:   y2023\d08
+    default-language: Haskell2010
