@@ -16,6 +16,7 @@ part1([Line|Lines], Result) :-
     part1(Lines, Results),
     Result is FirstNum * 10 + LastNum + Results.
 
+findFirstNumber("", 0).
 findFirstNumber(S, Number) :-
     findall(Num, (sub_string(S, 0, _, _, Sub), number(Sub, Num)), [Number]).
 findFirstNumber(S, Number) :-
@@ -23,6 +24,7 @@ findFirstNumber(S, Number) :-
     sub_string(S, 1, _, 0, Rest),
     findFirstNumber(Rest, Number).
 
+findLastNumber("", 0).
 findLastNumber(S, Number) :-
     findall(Num, (sub_string(S, _, _, 0, Sub), number(Sub, Num)), [Number]).
 findLastNumber(S, Number) :-
@@ -50,6 +52,7 @@ part2([Line|Lines], Result) :-
     part2(Lines, Results),
     Result is FirstNum * 10 + LastNum + Results.
 
+findFirstWordNumber("", 0).
 findFirstWordNumber(S, Number) :-
     findall(Num, (sub_string(S, 0, _, _, Sub), wordNumber(Sub, Num)), [Number]).
 findFirstWordNumber(S, Number) :-
@@ -57,6 +60,7 @@ findFirstWordNumber(S, Number) :-
     sub_string(S, 1, _, 0, Rest),
     findFirstWordNumber(Rest, Number).
 
+findLastWordNumber("", 0).
 findLastWordNumber(S, Number) :-
     findall(Num, (sub_string(S, _, _, 0, Sub), wordNumber(Sub, Num)), [Number]).
 findLastWordNumber(S, Number) :-
