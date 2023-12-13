@@ -195,3 +195,31 @@ executable Y2023D11
         , base      ^>=4.17.2.0
     hs-source-dirs:   y2023\d11
     default-language: Haskell2010
+
+
+executable Y2023D12
+    main-is:          Y2023D12.hs
+
+    build-depends: 
+        , text
+        , timeit
+        , input
+        , split
+        , containers
+        , base      ^>=4.17.2.0
+    hs-source-dirs:   y2023\d12
+    default-language: Haskell2010
+
+
+executable Y2023D13
+    main-is:          Y2023D13.hs
+
+    build-depends: 
+        , text
+        , timeit
+        , input
+        , split
+        , containers
+        , base      ^>=4.17.2.0
+    hs-source-dirs:   y2023\d13
+    default-language: Haskell2010
